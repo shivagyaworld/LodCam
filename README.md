@@ -34,6 +34,8 @@ Make sure You turn on your Mobile Hotspot
 ```
 $ bash ./lodcam.sh
 ```
+Select Port 2, because some time port 1 doesn't work
+Now, Wait for some time.
 well you get the link, copy the and share to your victim.
 
 ### Subscribe To our Youtube Channel
