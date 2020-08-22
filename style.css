@@ -1,0 +1,26 @@
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: #000;
+}
+/*Code by GYANESH MAURYA*/
+
+/*Please Subscribe our youtube channel Shivagya World*/
+#loding{
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+	z-index: 2;
+	pointer-events: none;
+	mix-blend-mode: screen;
+	size: 10px auto;
+	user-select: none;
+	-webkit-user-select: none;
+}
